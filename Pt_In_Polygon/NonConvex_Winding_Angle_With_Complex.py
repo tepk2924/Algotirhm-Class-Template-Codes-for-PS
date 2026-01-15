@@ -2,8 +2,8 @@ import cmath
 
 complexify = lambda P: P[0] + P[1]*1j
 
-def is_in(pt, polygon):
-    #OK to concave polygon, and whether it is CCW or CW
+def Pt_In_NonConvex_Polygon(pt, polygon):
+    #polygon does not need to be convex, and whether it is CCW or CW
     winding_angle = 0
     Z = complexify(pt)
     for idx in range(len(polygon)):
@@ -18,5 +18,5 @@ ptA = (0, 0)
 ptB = (2, 0)
 polygon = [(1, -1), (1, 1), (0, 0.5), (-1, 1), (-1, -1), (0, -0.5)]
 
-print(is_in(ptA, polygon))
-print(is_in(ptB, polygon))
+print(Pt_In_NonConvex_Polygon(ptA, polygon))
+print(Pt_In_NonConvex_Polygon(ptB, polygon))
