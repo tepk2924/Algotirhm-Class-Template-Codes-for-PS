@@ -3,7 +3,10 @@ import cmath
 complexify = lambda P: P[0] + P[1]*1j
 
 def Pt_In_NonConvex_Polygon(pt, polygon):
-    #polygon does not need to be convex, and whether it is CCW or CW
+    '''
+    Much shorter code implementation with complex arithmetic, but with possible floating point error.
+    Boundary checking is impossible.
+    '''
     winding_angle = 0
     Z = complexify(pt)
     for idx in range(len(polygon)):
@@ -16,6 +19,7 @@ def Pt_In_NonConvex_Polygon(pt, polygon):
 
 ptA = (0, 0)
 ptB = (2, 0)
+#polygon does not need to be convex, and whether it is CCW or CW
 polygon = [(1, -1), (1, 1), (0, 0.5), (-1, 1), (-1, -1), (0, -0.5)]
 
 print(Pt_In_NonConvex_Polygon(ptA, polygon))

@@ -3,7 +3,7 @@ class Union_Find:
         self.__parent = {key:key for key in keys}
         self.__rank = {key:0 for key in keys}
     
-    def find_root(self, key) -> int:
+    def find_root(self, key):
         while True:
             if self.__parent[key] == key:
                 return key
@@ -50,3 +50,12 @@ class Union_Find:
         for root in self.__roots_lazy_eval:
             self.__str_DFS(root, 0)
         return "\n".join(self.__strins)
+    
+    #Comment the part below if you do not want to use adding key or finding key feature: tepk2924
+    def add(self, key):
+        if key not in self.__parent:
+            self.__parent[key] = key
+            self.__rank[key] = 0
+    
+    def __contains__(self, key):
+        return key in self.__parent

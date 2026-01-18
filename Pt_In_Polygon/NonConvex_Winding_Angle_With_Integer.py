@@ -25,12 +25,10 @@ def Pt_In_NonConvex_Polygon(pt, polygon):
 
 ptA = (0, 0)
 ptB = (4, 0)
+ptC = (2, 0)
+#polygon does not need to be convex, and whether it is CCW or CW
 polygon = [(2, -2), (2, 2), (0, 1), (-2, 2), (-2, -2), (0, -1)]
 
 print(Pt_In_NonConvex_Polygon(ptA, polygon))
 print(Pt_In_NonConvex_Polygon(ptB, polygon))
-
-ptC = (3, 3)
-polygon2 = [(0, 0), (5, 5), (0, 10)]
-
-print(Pt_In_NonConvex_Polygon(ptC, polygon2))
+print(Pt_In_NonConvex_Polygon(ptC, polygon))
