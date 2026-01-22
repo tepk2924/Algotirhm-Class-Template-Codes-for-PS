@@ -1,7 +1,11 @@
 class Union_Find:
-    def __init__(self, keys):
-        self.__parent = {key:key for key in keys}
-        self.__rank = {key:0 for key in keys}
+    def __init__(self, N):
+        '''
+        key is indexed with 0 to N - 1
+        '''
+        self.N = N
+        self.__parent = [*range(N)]
+        self.__rank = [0]*N
     
     def find_root(self, key):
         while True:
@@ -27,9 +31,9 @@ class Union_Find:
     
     #Comment the part below if you do not want to use stringfy of this class: tepk2924
     def __child_root_evaluation(self):
-        self.__child_lazy_eval = {key:set() for key in self.__parent}
+        self.__child_lazy_eval = [set() for _ in range(self.N)]
         self.__roots_lazy_eval = set()
-        for key in self.__parent:
+        for key in range(self.N):
             curr = key
             while True:
                 parent = self.__parent[curr]
@@ -50,12 +54,11 @@ class Union_Find:
         for root in self.__roots_lazy_eval:
             self.__str_DFS(root, 0)
         return "\n".join(self.__strins)
-    
-    #Comment the part below if you do not want to use adding key or finding key feature: tepk2924
-    def add(self, key):
-        if key not in self.__parent:
-            self.__parent[key] = key
-            self.__rank[key] = 0
-    
-    def __contains__(self, key):
-        return key in self.__parent
+
+uf = Union_Find(10)
+uf.union(3, 4)
+uf.union(9, 2)
+uf.union(1, 7)
+print(uf)
+uf.union(0, 7)
+print(uf)

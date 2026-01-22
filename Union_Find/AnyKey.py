@@ -1,0 +1,76 @@
+class Union_Find:
+    def __init__(self, keys):
+        '''
+        key can be any hashable.
+        '''
+        self.__parent = {key:key for key in keys}
+        self.__rank = {key:0 for key in keys}
+    
+    def find_root(self, key):
+        while True:
+            if self.__parent[key] == key:
+                return key
+            key = self.__parent[key]
+    
+    def union(self, key1, key2) -> None:
+        root1 = self.find_root(key1)
+        root2 = self.find_root(key2)
+        if self.__rank[root1] > self.__rank[root2]:
+            self.__parent[root2] = root1
+        elif self.__rank[root1] < self.__rank[root2]:
+            self.__parent[root1] = root2
+        elif root1 == root2:
+            return
+        else:
+            self.__rank[root1] += 1
+            self.__parent[root2] = root1
+    
+    def is_same_set(self, key1, key2) -> bool:
+        return self.find_root(key1) == self.find_root(key2)
+    
+    #Comment the part below if you do not want to use stringfy of this class: tepk2924
+    def __child_root_evaluation(self):
+        self.__child_lazy_eval = {key:set() for key in self.__parent}
+        self.__roots_lazy_eval = set()
+        for key in self.__parent:
+            curr = key
+            while True:
+                parent = self.__parent[curr]
+                if parent == curr:
+                    self.__roots_lazy_eval.add(curr)
+                    break
+                self.__child_lazy_eval[parent].add(curr)
+                curr = parent
+
+    def __str_DFS(self, key, depth):
+        self.__strins.append(" "*depth + str(key))
+        for child in self.__child_lazy_eval[key]:
+            self.__str_DFS(child, depth + 1)
+
+    def __str__(self):
+        self.__child_root_evaluation()
+        self.__strins = ["<Union Find>"]
+        for root in self.__roots_lazy_eval:
+            self.__str_DFS(root, 0)
+        return "\n".join(self.__strins)
+    
+    #Comment the part below if you do not want to use adding key or finding key feature: tepk2924
+    def add(self, key):
+        if key not in self.__parent:
+            self.__parent[key] = key
+            self.__rank[key] = 0
+    
+    def __contains__(self, key):
+        return key in self.__parent
+
+uf = Union_Find(['Jack', 'Jim', 'Yan', 'Konner'])
+uf.union('Jack', 'Jim')
+print(uf)
+uf.union('Yan', 'Konner')
+print(uf)
+uf.add('Dean')
+uf.add('Laura')
+uf.union('Yan', 'Dean')
+print(f"Is Knonner and Dean is same set? {uf.is_same_set('Konner', 'Dean')}")
+print(uf)
+print(f"Jim's root is {uf.find_root('Jim')}")
